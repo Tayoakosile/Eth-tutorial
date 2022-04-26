@@ -1,11 +1,38 @@
 // SPDX-License-Identifier: GPL-3.0
-<<<<<<< HEAD
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-=======
-pragma solidity 0.8.0;
-import "@openzeppelin/contracts/token/ERC721/ERC20.sol";
->>>>>>> 3acf659ac28a870ba5f7f34dfda510746fa864e9
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-contract 
+
+contract MemeCoin is ERC20, Ownable, ERC20Burnable {
+    event tokensBurned(address indexed owner, uint256 amount, string message);
+    event tokensMinted(address indexed owner, uint256 amount, string message);
+    event additionalTokensMinted(
+        address indexed owner,
+        uint256 amount,
+        string message
+    );
+
+    constructor() ERC20("FUOYECOIN", "FUC") {
+        _mint(msg.sender, 1000 * 10**decimals());
+        emit tokensMinted(
+            msg.sender,
+            1000 * 10**decimals(),
+            "Initial supply of tokens minted."
+        );
+    }
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+        emit additionalTokensMinted(
+            msg.sender,
+            amount,
+            "Additional tokens minted."
+        );
+    }
+
+    function burn(uint256 amount) public override onlyOwner {
+        _burn(msg.sender, amount);
+        emit tokensBurned(msg.sender, amount, "Tokens burned.");
+    }
+}

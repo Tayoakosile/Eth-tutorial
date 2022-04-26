@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { ethers, utils } from 'ethers'
 import {
@@ -14,7 +13,9 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
-import abi from '../../artifacts/contracts/MemeCoin.sol/MemeCoin.json'
+import abi from '../abi/MemeCoin.json'
+
+declare let window: any
 const Index = () => {
   const toast = useToast()
   const [isWalletConnected, setIsWalletConnected] = useState(false)
@@ -86,7 +87,7 @@ const Index = () => {
         setError('Install a MetaMask wallet to get our token.')
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
     }
   }
 
@@ -96,6 +97,7 @@ const Index = () => {
       if (window.ethereum) {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
+
         const tokenContract = new ethers.Contract(
           contractAddress,
           contractABI,
@@ -129,10 +131,12 @@ const Index = () => {
           signer,
         )
         let tokenOwner = await tokenContract.owner()
+
         const txn = await tokenContract.mint(
           tokenOwner,
           utils.parseEther(inputValue.mintAmount),
         )
+
         console.log('Minting tokens...')
         await txn.wait()
         console.log('Tokens minted...', txn.hash)
@@ -192,7 +196,7 @@ const Index = () => {
     }
     getTokenInfo()
   }, [contractABI, isWalletConnected])
-
+  console.log(inputValue)
   return (
     <Flex
       h="fit"
@@ -323,8 +327,8 @@ const Index = () => {
                   rounded={'xs'}
                   placeholder="0.000 FUC"
                   value={inputValue.mintAmount}
-                  name="mintAmount"
                   onChange={(e) => handleInputChange(e)}
+                  name="mintAmount"
                 />
                 <Button
                   w="full"
@@ -333,7 +337,7 @@ const Index = () => {
                   onClick={burnToken}
                   boxShadow="none"
                 >
-                  Mint Token
+            Mint Token
                 </Button>
               </Box>
             </>
@@ -411,17 +415,7 @@ const Index = () => {
         </VStack>
       </VStack>
     </Flex>
-=======
-import React from 'react'
-import { Box, HStack, VStack } from '@chakra-ui/react'
-
-const index = () => {
-  return (
-    <>
-      <Box as="section"></Box>
-    </>
->>>>>>> 3acf659ac28a870ba5f7f34dfda510746fa864e9
   )
 }
 
-export default index
+export default Index

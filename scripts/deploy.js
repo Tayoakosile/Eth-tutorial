@@ -5,7 +5,7 @@ async function main() {
   const BankContractFactory = await hre.ethers.getContractFactory("MemeCoin");
   const BankContract = await BankContractFactory.deploy();
   console.log("MemeCoin deployed to ", BankContract.address);
-  console.log("MemeCoin owner address ", owner.address);
+  console.log("MemeCoin owner address", owner.address);
 
 }
 main().then(() => process.exit(0)).catch(error => {
