@@ -2,7 +2,9 @@
   box-sizing: border-box;
 }
 body {
-  /* background: #2a3d53 !important; */
+  background: #0c1629 !important;
+}
+html,body {
   height: 100%;
   width: 100%;
 }
