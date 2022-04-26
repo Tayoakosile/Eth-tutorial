@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react'
 import { ethers, utils } from 'ethers'
 import {
@@ -410,7 +411,17 @@ const Index = () => {
         </VStack>
       </VStack>
     </Flex>
+=======
+import React from 'react'
+import { Box, HStack, VStack } from '@chakra-ui/react'
+
+const index = () => {
+  return (
+    <>
+      <Box as="section"></Box>
+    </>
+>>>>>>> 3acf659ac28a870ba5f7f34dfda510746fa864e9
   )
 }
 
-export default Index
+export default index
