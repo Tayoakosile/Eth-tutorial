@@ -337,7 +337,7 @@ const Index = () => {
                   onClick={burnToken}
                   boxShadow="none"
                 >
-            Mint Token
+                  Mint Token
                 </Button>
               </Box>
             </>
