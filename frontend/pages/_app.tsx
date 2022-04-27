@@ -5,8 +5,8 @@ import '@fontsource/noto-sans'
 import '@fontsource/roboto'
 import '@fontsource/lato'
 import 'react-alice-carousel/lib/alice-carousel.css'
-import '.././styles/globals.css'
 import { theme } from '../utils/util'
+import '.././styles/globals.css'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>

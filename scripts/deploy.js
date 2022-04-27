@@ -1,9 +1,10 @@
 const hre = require("hardhat");
 
 async function main() {
-  const MoodDiaryFactory = await hre.ethers.getContractFactory("MoodDiary");
-  const MoodDiary = await MoodDiaryFactory.deploy();
-  console.log("MoodDiary deployed to ", MoodDiary.address);
+  const BlockChainQuizFactory = await hre.ethers.getContractFactory("BlockChainQuiz");
+  const BlockChainQuiz = await BlockChainQuizFactory.deploy();
+  await BlockChainQuiz.deployed();
+  console.log("MoodDiary deployed to", BlockChainQuiz,BlockChainQuiz.address);
   // console.log("MoodDiary owner address", owner.address);
 
 }
