@@ -1,11 +1,10 @@
 const hre = require("hardhat");
 
 async function main() {
-  const [owner] = await hre.ethers.getSigners();
-  const BankContractFactory = await hre.ethers.getContractFactory("MemeCoin");
-  const BankContract = await BankContractFactory.deploy();
-  console.log("MemeCoin deployed to ", BankContract.address);
-  console.log("MemeCoin owner address", owner.address);
+  const MoodDiaryFactory = await hre.ethers.getContractFactory("MoodDiary");
+  const MoodDiary = await MoodDiaryFactory.deploy();
+  console.log("MoodDiary deployed to ", MoodDiary.address);
+  // console.log("MoodDiary owner address", owner.address);
 
 }
 main().then(() => process.exit(0)).catch(error => {
