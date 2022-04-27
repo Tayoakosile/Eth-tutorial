@@ -5,7 +5,7 @@ import QuizResult from '../../components/QuizResult'
 const result = () => {
   return (
     <>
-        <QuizResult />
+      <QuizResult />
     </>
   )
 }
