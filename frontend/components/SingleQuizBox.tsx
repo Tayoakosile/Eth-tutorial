@@ -9,7 +9,7 @@ const SingleQuizBox = ({ topic }: { topic: string }) => {
         as="section"
         onClick={() => router.push(`/quiz/${topic}`)}
         w="full"
-        h="28"
+        h={{ base: '28', lg: '40' }}
         rounded="lg"
         bg="#fff"
         spacing="4"
@@ -28,7 +28,7 @@ const SingleQuizBox = ({ topic }: { topic: string }) => {
         }}
       >
         <Icon w="4" h="4" />
-        <Heading size="xs" textAlign={'center'}>
+        <Heading fontSize={{ base: 'xs', lg: 'md' }} textAlign={'center'}>
           {topic}
         </Heading>
       </VStack>

@@ -2,17 +2,18 @@ import { Avatar, Box, Heading, HStack, Text, VStack } from '@chakra-ui/react'
 
 const QuizComponent = () => {
   return (
-    <Box as="span" >
+    <Box as="span">
       <Box
         position="relative"
         w="full"
-        h="48"
+        // h="48"
+        h={{ base: '48', lg: '60' }}
         bg="secondary.500"
         borderBottomRightRadius={'10px'}
         borderBottomLeftRadius={'10px'}
         p="3"
       >
-        <HStack>
+        <HStack cursor={'pointer'}>
           <Avatar />
           <Heading color="#fff" size="md">
             Tayo Akosile
@@ -21,7 +22,7 @@ const QuizComponent = () => {
         <HStack
           position="absolute"
           h="52"
-          w="90%"
+          width={{ base: '90%', lg: '70%' }}
           mx="auto"
           bg="secondary.900"
           mt="8"

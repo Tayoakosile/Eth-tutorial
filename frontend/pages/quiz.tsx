@@ -5,7 +5,10 @@ import Quizzes from '../components/Quizzes'
 
 const Quiz = () => {
   return (
-    <Box as="section">
+    <Box as="section"
+        bg="#EDF4F6"
+
+    >
       <QuizComponent />
       <Quizzes />
     </Box>
