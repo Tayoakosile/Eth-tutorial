@@ -3,11 +3,7 @@ import { Box, HStack, VStack } from '@chakra-ui/react'
 import QuizResult from '../../components/QuizResult'
 
 const result = () => {
-  return (
-    <>
-      <QuizResult />
-    </>
-  )
+  return <></>
 }
 
 export default result

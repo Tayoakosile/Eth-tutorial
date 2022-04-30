@@ -2,7 +2,7 @@ import { Box, Button, Center, Heading, Icon, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import QuizzQuestion from '../../components/QuizzQuestions'
-import quiz from '../../utils/quiz'
+import ProtectedComponent from '../../components/ProtectedComponent'
 
 const QuizTitle = () => {
   // console.log()
@@ -11,7 +11,7 @@ const QuizTitle = () => {
   const [startQuiz, setStartQuiz] = useState(false)
 
   return (
-    <>
+    <ProtectedComponent>
       {startQuiz ? (
         <QuizzQuestion quizName={quizName} />
       ) : (
@@ -32,7 +32,7 @@ const QuizTitle = () => {
           </Center>
         </Box>
       )}
-    </>
+    </ProtectedComponent>
   )
 }
 

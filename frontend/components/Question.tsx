@@ -4,7 +4,6 @@ import Answer from './Answer'
 import randomatic from 'randomatic'
 
 const Question = ({ currentQuizQuestion }: { currentQuizQuestion: any }) => {
-  // console.log(currentQuizQuestion, 'currentQuizQuestion')
   const { question, answers } = currentQuizQuestion
   return (
     <>

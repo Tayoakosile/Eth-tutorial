@@ -59,7 +59,7 @@ const Home = () => {
           <Button
             size="lg"
             h="14"
-            w={{ base: '80%', md: '40%', lg: '60%' }}
+            w={{ base: '80%', md: '40%',lg:'25%' }}
             bg="#EC1C68"
             onClick={connectAccount}
             loadingText="Connecting"

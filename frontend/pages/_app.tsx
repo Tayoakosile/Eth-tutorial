@@ -14,14 +14,15 @@ import { MoralisProvider } from 'react-moralis'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        <MoralisProvider
-          appId={'DrfXQj5fc6n5loEZGOt6JCOOYGRx60sTOLrNrwTH'}
-          serverUrl="https://qcoogxh3vhbl.usemoralis.com:2053/server"
-        >
+      <MoralisProvider
+        appId={'DrfXQj5fc6n5loEZGOt6JCOOYGRx60sTOLrNrwTH'}
+        serverUrl="https://qcoogxh3vhbl.usemoralis.com:2053/server"
+        
+      >
+        <Provider store={store}>
           <Component {...pageProps} />
-        </MoralisProvider>
-      </Provider>
+        </Provider>
+      </MoralisProvider>
     </ChakraProvider>
   )
 }

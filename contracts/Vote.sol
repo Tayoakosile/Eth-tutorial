@@ -18,7 +18,7 @@ And as the admin of the app, you would be able  to pause the app or stop the vot
      event additionalTokenMinted(address indexed owner,uint256 amount,string message);
 
       constructor() ERC20("BLKQUIZ", "BLQ") {
-        _mint(msg.sender, 10000*10**decimals());
+        _mint(msg.sender, 1000000*10**decimals());
         emit tokensMinted(msg.sender,10000*10**decimals(),'Token minted');
     }
 

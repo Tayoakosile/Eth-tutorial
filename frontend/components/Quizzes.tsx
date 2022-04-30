@@ -26,7 +26,7 @@ const Quizzes = () => {
           pt="8"
         >
           {topics.map((topic) => (
-            <SingleQuizBox key={randomatic('0a', 12)} topic={topic} />
+            <SingleQuizBox  key={randomatic('0a', 12)} topic={topic} />
           ))}
         </SimpleGrid>
       </Box>

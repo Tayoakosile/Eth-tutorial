@@ -6,9 +6,8 @@ import {
   SimpleGrid,
   Spacer,
   Text,
-  VStack
+  VStack,
 } from '@chakra-ui/react'
-import Router from 'next/router'
 import randomatic from 'randomatic'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,8 +15,10 @@ import { RootState } from '../store/store'
 import { updateTotalScore } from '../store/totalScores'
 import allQuiz from '../utils/quiz'
 import Question from './Question'
+import useCompleteQuiz from '../hooks/useCompleteQuiz'
 
 const QuizzQuestion = ({ quizName }: { quizName: string }) => {
+  const { saveScores } = useCompleteQuiz()
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const currentQuizQuestion = allQuiz[quizName]
   const dispatch = useDispatch()
@@ -30,10 +31,6 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
   const userTotalQuizScore = useSelector(
     (state: RootState) => state.userTotalScore.value.score,
   )
-
-  useEffect(() => {
-    console.log(userTotalQuizScore, 'userTotalQuizScore')
-  }, [userTotalQuizScore])
 
   return (
     <Box
@@ -75,16 +72,13 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
           alignItems={{ base: 'flex-start', md: 'center' }}
         >
           {[
-            currentQuizQuestion.map((question: any) => (
+            currentQuizQuestion.map((question: any, index: number) => (
               <Box
                 as="span"
                 key={randomatic('0a', 12)}
-                // bg={
-                //   currentQuizQuestion[currentQuestion].correct ===
-                //   currentQuizQuestion[question].correct
-                //     ? 'whiteAlpha.500'
-                //     : 'brand.500'
-                // }
+                bg={
+                  currentQuestion + 1 <= index ? 'whiteAlpha.500' : 'brand.500'
+                }
                 w="full"
                 h="1"
               />
@@ -125,41 +119,57 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
           </Button>
           <Spacer />
           {/* Next button */}
-          <Button
-            size="lg"
-            w={{ base: '50%', md: '30%' }}
-            disabled={!userChosenData ? true : false}
-            h="12"
-            onClick={() => {
-              // Makes sure react does'not show an error cos of length
-              console.log(currentQuizQuestion[0].correct, userChosenData)
 
-              // If user chose the correct answer then increase total score else decrease the score
-              {
-                userChosenData === currentQuizQuestion[0].correct
-                  ? dispatch(
-                      updateTotalScore({ score: userTotalQuizScore + 1 }),
-                    )
-                  : dispatch(
-                      updateTotalScore({
-                        score:
-                          userTotalQuizScore <= 0 ? 0 : userTotalQuizScore - 1,
-                      }),
-                    )
-              }
+          {currentQuestion !== currentQuizQuestion.length - 1 ? (
+            <Button
+              size="lg"
+              w={{ base: '50%', md: '30%' }}
+              h="12"
+              disabled={!userChosenData ? true : false}
+              onClick={() => {
+                // If user chose the correct answer then increase total score else decrease the score
+                {
+                  userChosenData === currentQuizQuestion[0].correct
+                    ? dispatch(
+                        updateTotalScore({ score: userTotalQuizScore + 1 }),
+                      )
+                    : dispatch(
+                        updateTotalScore({
+                          score:
+                            userTotalQuizScore <= 0
+                              ? 0
+                              : userTotalQuizScore - 1,
+                        }),
+                      )
+                }
 
-              if (currentQuestion !== currentQuizQuestion.length - 1) {
-                setCurrentQuestion(currentQuestion + 1)
-              } else {
-                console.log('quiz ended')
-                Router.push('/quiz/result')
-              }
-            }}
-          >
-            {currentQuestion === currentQuizQuestion.length - 1
-              ? 'Complete Quiz'
-              : 'Next'}
-          </Button>
+                if (currentQuestion !== currentQuizQuestion.length - 1) {
+                  setCurrentQuestion(currentQuestion + 1)
+                }
+              }}
+            >
+              Next
+            </Button>
+          ) : (
+            <Button
+              size="lg"
+              w={{ base: '50%', md: '30%' }}
+              h="12"
+              onClick={() => {
+                let earnedCoin
+
+                // Save scores to database,
+                saveScores(
+                  quizName,
+                  userTotalQuizScore,
+                  currentQuizQuestion.length,
+                  false, // Is reward claimed
+                )
+              }}
+            >
+              Complete Quiz
+            </Button>
+          )}
         </HStack>
       </VStack>
     </Box>
