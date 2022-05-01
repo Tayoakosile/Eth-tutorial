@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { HStack, Text, useCheckbox } from '@chakra-ui/react'
+import { HStack, Text } from '@chakra-ui/react'
 import { answerUserChecked } from '../store/isAnswerChecked'
 import { RootState } from '../store/store'
-import { useEffect } from 'react'
 
 const Answer = ({ options }: { options: any }) => {
-  const { state, getCheckboxProps } = useCheckbox()
   const dispatch = useDispatch()
   const optionUserChose = useSelector(
     (state: RootState) => state.isAnswerChecked.value.id,
@@ -16,11 +14,11 @@ const Answer = ({ options }: { options: any }) => {
     <>
       <HStack
         as="span"
-        w="full"
+        w={{ base: 'full' }}
         cursor={'pointer'}
-        h="16"
+        h="fit-content"
         border="1px solid white"
-        p="4"
+        p="3"
         justify="space-between"
         _hover={{
           bg: optionUserChose === options ? 'brand.500' : 'whiteAlpha.300',

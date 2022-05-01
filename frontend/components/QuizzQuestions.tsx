@@ -9,17 +9,19 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import randomatic from 'randomatic'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import useCompleteQuiz from '../hooks/useCompleteQuiz'
+import { answerUserChecked } from '../store/isAnswerChecked'
 import { RootState } from '../store/store'
 import { updateTotalScore } from '../store/totalScores'
 import allQuiz from '../utils/quiz'
 import Question from './Question'
-import useCompleteQuiz from '../hooks/useCompleteQuiz'
 
 const QuizzQuestion = ({ quizName }: { quizName: string }) => {
   const { saveScores } = useCompleteQuiz()
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  // @ts-ignore
   const currentQuizQuestion = allQuiz[quizName]
   const dispatch = useDispatch()
   // Answer user chose
@@ -89,15 +91,14 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
         <Question currentQuizQuestion={currentQuizQuestion[currentQuestion]} />
 
         <HStack
-          width={{ base: '95%', lg: '100%' }}
+          width={{ base: '95%', md: 'auto', lg: '90%' }}
           mx="auto"
-          position={{ base: 'absolute', md: 'relative' }}
+          position={{ base: 'absolute', md: 'relative', lg: 'absolute' }}
           align="center"
-          bottom={{ base: '16', lg: '0' }}
-          pt={{ base: '0', md: '32' }}
-          left="0px"
-          right="0px"
-          pl="4"
+          bottom={{ base: '4', md: '0', lg: '20' }}
+          pt={{ base: '0', md: '32', lg: '0' }}
+          left={{ base: '0px', lg: '10' }}
+          right={{ base: '0px' }}
           sx={{
             'button, button:hover,button:focus': {
               outline: 'none',
@@ -105,71 +106,71 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
             },
           }}
         >
-          <Button
-            variant={'link'}
-            size="lg"
-            onClick={() => {
-              // currentQuestion === 0 && setCurrentQuestion(0
-              currentQuestion !== 0
-              setCurrentQuestion(currentQuestion - 1)
-            }}
-            disabled={currentQuestion + 1 === 1 ? true : false}
-          >
-            Previous
-          </Button>
-          <Spacer />
-          {/* Next button */}
-
-          {currentQuestion !== currentQuizQuestion.length - 1 ? (
+          <HStack w={{ base: '100%', lg: '50%' }} mx="auto" pl="4">
             <Button
+              variant={'ghost'}
               size="lg"
-              w={{ base: '50%', md: '30%' }}
-              h="12"
-              disabled={!userChosenData ? true : false}
               onClick={() => {
-                // If user chose the correct answer then increase total score else decrease the score
-                {
-                  userChosenData === currentQuizQuestion[0].correct
-                    ? dispatch(
-                        updateTotalScore({ score: userTotalQuizScore + 1 }),
-                      )
-                    : dispatch(
-                        updateTotalScore({
-                          score:
-                            userTotalQuizScore <= 0
-                              ? 0
-                              : userTotalQuizScore - 1,
-                        }),
-                      )
-                }
-
-                if (currentQuestion !== currentQuizQuestion.length - 1) {
-                  setCurrentQuestion(currentQuestion + 1)
-                }
+                currentQuestion !== 0
+                setCurrentQuestion(currentQuestion - 1)
               }}
+              disabled={currentQuestion + 1 === 1 ? true : false}
             >
-              Next
+              Previous
             </Button>
-          ) : (
-            <Button
-              size="lg"
-              w={{ base: '50%', md: '30%' }}
-              h="12"
-              onClick={() => {
-                let earnedCoin
+            <Spacer />
+            {/* Next button */}
 
-                // Save scores to database,
-                saveScores(
-                  quizName,
-                  userTotalQuizScore,
-                  currentQuizQuestion.length,
-                  false, // Is reward claimed
-                )
-              }}
-            >
-              Complete Quiz
-            </Button>
-          )}
+            {currentQuestion !== currentQuizQuestion.length - 1 ? (
+              <Button
+                size="lg"
+                w={{ base: '50%', md: '30%', lg: '20%' }}
+                h="12"
+                disabled={userChosenData == '' ? true : false}
+                onClick={() => {
+                  // If user chose the correct answer then increase total score else decrease the score
+
+                  {
+                    userChosenData == currentQuizQuestion[0].correct
+                      ? dispatch(
+                          updateTotalScore({ score: userTotalQuizScore + 1 }),
+                        )
+                      : dispatch(
+                          updateTotalScore({
+                            score:
+                              userTotalQuizScore <= 0
+                                ? 0
+                                : userTotalQuizScore - 1,
+                          }),
+                        )
+                  }
+
+                  if (currentQuestion !== currentQuizQuestion.length - 1) {
+                    setCurrentQuestion(currentQuestion + 1)
+                  }
+                  dispatch(answerUserChecked({ id: '' }))
+                }}
+              >
+                Next
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                w={{ base: '50%', md: '30%' }}
+                h="12"
+                onClick={() => {
+                  saveScores(
+                    quizName,
+                    userTotalQuizScore,
+                    currentQuizQuestion.length,
+                    false, // Is reward claimed
+                  )
+                }}
+              >
+                Complete Quiz
+              </Button>
+            )}
+          </HStack>
         </HStack>
       </VStack>
     </Box>

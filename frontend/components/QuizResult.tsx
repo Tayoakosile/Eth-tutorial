@@ -1,18 +1,33 @@
-import React from 'react'
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
-  HStack,
-  VStack,
-  Heading,
-  Center,
-  Icon,
-  Text,
   Button,
+  Center,
+  Heading,
+  HStack,
+  Icon,
+  ListItem,
+  Text,
+  UnorderedList,
+  useDisclosure,
+  VStack,
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import React, { useState } from 'react'
 import useShowResult from '../hooks/useShowResult'
 
 const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
+  const [isOpen, setIsOpen] = useState({ open: false, earnedCoin: 0 })
+  const { onClose } = useDisclosure()
+
+  const cancelRef = React.useRef<HTMLButtonElement>(null)
+
   const {
     quizName,
     userTotalQuizScore,
@@ -41,6 +56,55 @@ const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
         },
       }}
     >
+      <>
+        <AlertDialog
+          motionPreset="slideInBottom"
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isOpen={isOpen.open}
+          isCentered
+          size="lg"
+          closeOnOverlayClick={false}
+        >
+          <AlertDialogOverlay />
+
+          <AlertDialogContent>
+            <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
+            <AlertDialogCloseButton />
+            <AlertDialogBody>
+              <Text>To receive your rewards, make sure you</Text>
+              <br />
+              <UnorderedList fontSize="sm" spacing={'2'}>
+                <ListItem>
+                  Switch to{' '}
+                  <Text as="span" fontStyle={'italic'} fontWeight="bold">
+                    Rinkeby Test Network
+                  </Text>{' '}
+                  on your Metamask Wallet
+                </ListItem>
+                <ListItem>
+                  Copy this token address and Import into your wallet
+                  <br />
+                </ListItem>
+
+                <Text as="span" mt="6" fontSize="lg">
+                  0x7Ce15147d6e57162BffF39049a027e845365b361
+                </Text>
+              </UnorderedList>
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                onClick={() => {
+                  claimReward(isOpen.earnedCoin)
+                  setIsOpen({ open: false, earnedCoin: isOpen.earnedCoin })
+                }}
+              >
+                Done
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </>
       <Heading className="quiz__app" fontSize="2rem !important">
         Quiz Result
       </Heading>
@@ -111,7 +175,7 @@ const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
               size="lg"
               h={{ base: '12', lg: '14' }}
               onClick={() => {
-                claimReward(earnedCoin)
+                setIsOpen({ open: true, earnedCoin })
               }}
               isLoading={claimTransaction}
               loadingText="Claiming reward"

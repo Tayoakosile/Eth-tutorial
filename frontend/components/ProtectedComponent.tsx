@@ -18,7 +18,7 @@ const ProtectedComponent = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <Box as="section">{currentUser && children}</Box>
+      <Box as="section">{isAuthenticated && currentUser && children}</Box>
     </>
   )
 }

@@ -11,7 +11,6 @@ const useAuth = () => {
     isAuthenticating,
   } = useConnectWallet()
 
-  console.log('authenticating')
   // if (!isAuthenticating) {
   const currentUser =
     isAuthenticating == false && isInitialized && Moralis.User.current()
@@ -20,7 +19,6 @@ const useAuth = () => {
     isAuthenticating == false && !isAuthenticated && router.push('/')
   }, [isAuthenticated, isAuthenticating, router])
 
-  console.log(currentUser)
   return { currentUser, isAuthenticated }
 }
 

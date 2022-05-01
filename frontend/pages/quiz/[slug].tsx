@@ -17,12 +17,12 @@ const QuizTitle = () => {
       ) : (
         <Box as="section">
           <Center h="100vh" w="full">
-            <VStack as="span" w="full">
+            <VStack as="span" w="full" spacing={'8'}>
               <Icon />
               <Heading>{quizName} Quiz</Heading>
               <Button
                 h="14"
-                w="60%"
+                w={{ base: '60%', md: '30%',lg:'20%' }}
                 size={'lg'}
                 onClick={() => setStartQuiz(true)}
               >

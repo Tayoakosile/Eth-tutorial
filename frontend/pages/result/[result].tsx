@@ -15,7 +15,7 @@ const UserResult = () => {
 
   return (
     <ProtectedComponent>
-      <QuizResult quizScoreAndResult={findCurrentQuiz(quizType)} />
+    <QuizResult quizScoreAndResult={findCurrentQuiz(quizType)} />
     </ProtectedComponent>
   )
 }
