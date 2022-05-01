@@ -1,9 +1,8 @@
-import React from 'react'
-import { Box, HStack, VStack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+import ProtectedComponent from '../components/ProtectedComponent'
 import QuizComponent from '../components/quiz'
 import Quizzes from '../components/Quizzes'
 import useConnectWallet from '../hooks/useConnectWallet'
-import ProtectedComponent from '../components/ProtectedComponent'
 
 const Quiz = () => {
   const { user, account } = useConnectWallet()

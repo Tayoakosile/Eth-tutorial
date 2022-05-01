@@ -1,9 +1,17 @@
-import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
-import randomatic from 'randomatic'
+import React from 'react'
+import { Box, HStack, VStack, Heading, SimpleGrid } from '@chakra-ui/react'
 import SingleQuizBox from './SingleQuizBox'
+import randomatic from 'randomatic'
 
 const Quizzes = () => {
-  const topics = ['Blockchain', 'NFT']
+  const topics = ['Blockchain', 'NFT', 'Smart']
+  const allQuizImages = [
+    '/quiz-1.png',
+    '/quiz-2.png',
+    '/quiz-3.png',
+    '/quiz-4.png',
+    '/ideas.png',
+  ]
   return (
     <>
       <Box

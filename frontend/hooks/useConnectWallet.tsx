@@ -15,6 +15,7 @@ const useConnectWallet = () => {
   const {
     enableWeb3,
     authenticate,
+    authError,
     isInitialized,
     isAuthenticated,
     user,
@@ -82,6 +83,7 @@ const useConnectWallet = () => {
     isAuthenticated,
     isInitialized,
     isAuthenticating,
+    authError,
   }
 }
 export default useConnectWallet

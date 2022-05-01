@@ -163,6 +163,52 @@ const quiz = {
       correct: "All of the below",
     },
   ],
+  Smart: [
+    {
+      question: "What is the programming language for Ethereum smart contract?",
+
+      answers: ["Solidity", "Truffle", "Node.js"],
+      correct: "Solidity",
+    },
+
+    {
+      question: "Remix is a IDE, IDE stands for?",
+
+      answers: [
+        "Integrated Development Environment",
+        "Integrated Dapp Environment",
+        "Internet Development Environment",
+      ],
+      correct: "Integrated Development Environment",
+    },
+
+    {
+      question: "Which of the following is an example of String value?",
+
+      answers: ["false", "12345", "Hey Susan!"],
+      correct: "Hey Susan!",
+    },
+    {
+      question: "Ropsten, Rinkeby and Kovan are examples of?",
+
+      answers: ["Dapps", "Testnet", "Mainnet"],
+      correct: "Testnet",
+    },
+
+    {
+      question: "What is ERC20?",
+
+      answers: ["Token Standard", "Testnet", "Mainnet"],
+      correct: "Testnet",
+    },
+
+    {
+      question: '"msg.data", "msg.sender", "msg.gas" are?',
+
+      answers: ["Global Variables", "Local Variables", "Unique Variables"],
+      correct: "Global Variables",
+    },
+  ],
 };
 
 export default quiz;

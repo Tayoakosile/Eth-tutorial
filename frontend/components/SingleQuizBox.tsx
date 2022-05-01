@@ -1,13 +1,21 @@
-import { Heading, Icon, VStack } from '@chakra-ui/react'
+import { Heading, Image, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 const SingleQuizBox = ({ topic }: { topic: string }) => {
+  const allQuizImages = [
+    '/quiz-1.png',
+    '/quiz-2.png',
+    '/quiz-3.png',
+    '/quiz-4.png',
+    '/ideas.png',
+  ]
+  const randomNumber = Math.round(Math.random() * (allQuizImages.length - 1))
   const router = useRouter()
   return (
     <>
       <VStack
         as="section"
-        onClick={() => router.push(`/quiz/${topic}`)}
+        onClick={() => router.push(`/quiz/${randomNumber}/${topic}`)}
         w="full"
         h={{ base: '28', lg: '40' }}
         rounded="lg"
@@ -18,18 +26,26 @@ const SingleQuizBox = ({ topic }: { topic: string }) => {
         p="2"
         justify="center"
         cursor="pointer"
-        transition={'all 0.3s ease-in'}
+        transition={'all 0.2s ease-in'}
         _hover={{
-          shadow: 'lg',
+          shadow: 'xl',
         }}
         _focus={{
-          transform: 'scale(4)',
-          shadow: 'lg',
+          shadow: 'xl',
         }}
       >
-        <Icon w="4" h="4" />
-        <Heading fontSize={{ base: 'xs', lg: 'md' }} textAlign={'center'}>
-          {topic}
+        <Image
+          src={allQuizImages[randomNumber]}
+          w="12"
+          h="12"
+          alt="Quiz image"
+        />
+        <Heading
+          fontSize={{ base: 'xs', md: 'xl', lg: '2xl' }}
+          textAlign={'center'}
+          textTransform="uppercase"
+        >
+          {topic == 'Smart' ? 'Smart Contract' : topic}
         </Heading>
       </VStack>
     </>

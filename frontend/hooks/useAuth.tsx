@@ -9,6 +9,7 @@ const useAuth = () => {
     isInitialized,
     isAuthenticated,
     isAuthenticating,
+    authError,
   } = useConnectWallet()
 
   // if (!isAuthenticating) {
@@ -16,8 +17,11 @@ const useAuth = () => {
     isAuthenticating == false && isInitialized && Moralis.User.current()
 
   useEffect(() => {
-    isAuthenticating == false && !isAuthenticated && router.push('/')
-  }, [isAuthenticated, isAuthenticating, router])
+    isAuthenticating == false &&
+      !isAuthenticated &&
+      authError &&
+      router.push('/')
+  }, [isAuthenticated, isAuthenticating, router, authError])
 
   return { currentUser, isAuthenticated }
 }

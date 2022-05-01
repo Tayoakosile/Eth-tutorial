@@ -1,8 +1,33 @@
-import { Box, Heading, HStack, VStack } from '@chakra-ui/react'
+import {
+  Avatar,
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
+import useChangeName from '../hooks/useChangeName'
 
 const QuizComponent = () => {
+  const {
+    changeName,
+    currentUserName,
+    handleChangeName,
+    isSaving,
+    handleChangeInput,
+    userBalance,
+  } = useChangeName()
   return (
-    <Box as="span">
+    <>
       <Box
         position="relative"
         w="full"
@@ -13,6 +38,62 @@ const QuizComponent = () => {
         borderBottomLeftRadius={'10px'}
         p="3"
       >
+        <Popover>
+          {/* @ts-ignore */}
+          <PopoverTrigger>
+            <Button
+              variant="unstyled"
+              _hover={{
+                boxShadow: '0 0 0 0px rgb(0,0,0) !important',
+              }}
+              _focus={{
+                boxShadow: '0 0 0 0px rgb(0,0,0) !important',
+              }}
+            >
+              <HStack color="#fff">
+                <Avatar />
+                <Heading>{currentUserName ? currentUserName : 'User'}</Heading>
+              </HStack>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent ml="6">
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>Your Details</PopoverHeader>
+            <PopoverBody p="4">
+              <Text>Name</Text>
+              <HStack>
+                <Input
+                  value={currentUserName}
+                  w="70%"
+                  readOnly={changeName ? false : true}
+                  onChange={handleChangeInput}
+                />
+                <Button
+                  isLoading={isSaving}
+                  loadingText="Saving..."
+                  onClick={() =>
+                    handleChangeName(changeName ? 'Save' : 'Change')
+                  }
+                >
+                  {changeName ? 'Save' : 'Change'}
+                </Button>
+              </HStack>
+              <br />
+              <HStack>
+                <Text>Total Coin earned:</Text>
+                <Text >
+                  <Text fontWeight={'bold'} fontSize="lg" as="span" pr="2"
+                  color="brand.500"
+                  >
+                    {userBalance}
+                  </Text>
+                  BLCKCOIN
+                </Text>
+              </HStack>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
         <HStack
           position="absolute"
           h="52"
@@ -32,10 +113,11 @@ const QuizComponent = () => {
             <Heading size="xl">
               Play &<br /> Win Coin
             </Heading>
+            <Text>Hello world are you </Text>
           </VStack>
         </HStack>
       </Box>
-    </Box>
+    </>
   )
 }
 

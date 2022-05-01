@@ -21,6 +21,7 @@ import Question from './Question'
 const QuizzQuestion = ({ quizName }: { quizName: string }) => {
   const { saveScores } = useCompleteQuiz()
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [complete, setComplete] = useState(false)
   // @ts-ignore
   const currentQuizQuestion = allQuiz[quizName]
   const dispatch = useDispatch()
@@ -130,8 +131,14 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
                 onClick={() => {
                   // If user chose the correct answer then increase total score else decrease the score
 
+                  console.log(
+                    userChosenData ==
+                      currentQuizQuestion[currentQuestion].correct,
+                    currentQuizQuestion[currentQuestion].correct,
+                  )
                   {
-                    userChosenData == currentQuizQuestion[0].correct
+                    userChosenData ==
+                    currentQuizQuestion[currentQuestion].correct
                       ? dispatch(
                           updateTotalScore({ score: userTotalQuizScore + 1 }),
                         )
@@ -156,7 +163,7 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
             ) : (
               <Button
                 size="lg"
-                w={{ base: '50%', md: '30%' }}
+                w={{ base: complete ? '70%' : '50%', md: '30%' }}
                 h="12"
                 onClick={() => {
                   saveScores(
@@ -165,7 +172,11 @@ const QuizzQuestion = ({ quizName }: { quizName: string }) => {
                     currentQuizQuestion.length,
                     false, // Is reward claimed
                   )
+                  setComplete(true)
+                  dispatch(updateTotalScore({ score: 0 }))
                 }}
+                isLoading={complete}
+                loadingText="Calculating scores"
               >
                 Complete Quiz
               </Button>

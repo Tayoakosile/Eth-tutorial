@@ -1,5 +1,6 @@
 import {
   AlertDialog,
+  useClipboard,
   AlertDialogBody,
   AlertDialogCloseButton,
   AlertDialogContent,
@@ -24,13 +25,18 @@ import useShowResult from '../hooks/useShowResult'
 
 const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
   const [isOpen, setIsOpen] = useState({ open: false, earnedCoin: 0 })
+  const [value, setValue] = useState(
+    '0x7ce15147d6e57162bfff39049a027e845365b361',
+  )
+  const { hasCopied, onCopy } = useClipboard(value)
+
   const { onClose } = useDisclosure()
 
   const cancelRef = React.useRef<HTMLButtonElement>(null)
 
   const {
     quizName,
-    userTotalQuizScore,
+    score,
     totalQuestionLength,
     earnedCoin,
     isRewardClaimed,
@@ -68,8 +74,8 @@ const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
         >
           <AlertDialogOverlay />
 
-          <AlertDialogContent>
-            <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
+          <AlertDialogContent w="90%">
+            <AlertDialogHeader>Claim your Coins🤑</AlertDialogHeader>
             <AlertDialogCloseButton />
             <AlertDialogBody>
               <Text>To receive your rewards, make sure you</Text>
@@ -84,12 +90,18 @@ const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
                 </ListItem>
                 <ListItem>
                   Copy this token address and Import into your wallet
-                  <br />
                 </ListItem>
-
-                <Text as="span" mt="6" fontSize="lg">
-                  0x7Ce15147d6e57162BffF39049a027e845365b361
+                <br />
+                <Text as="span" mt="6" fontSize="lg" noOfLines={2}>
+                  {value}
                 </Text>
+                <Button
+                  onClick={onCopy}
+                  variant="ghost"
+                  boxShadow={'none !important'}
+                >
+                  {hasCopied ? 'COPIED' : 'COPY'}
+                </Button>
               </UnorderedList>
             </AlertDialogBody>
             <AlertDialogFooter>
@@ -111,6 +123,7 @@ const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
       <Center as="section" h="full">
         <VStack as="span">
           <Icon />
+          
           {earnedCoin === 100 && (
             <>
               <Heading fontSize={{ base: 'xl', lg: '6xl' }}>
@@ -133,7 +146,7 @@ const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
                 fontWeight="bold"
               >
                 <Text as="span" color="green">
-                  {userTotalQuizScore}
+                  {score}
                 </Text>
                 /{totalQuestionLength}
               </Text>

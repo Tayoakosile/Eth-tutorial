@@ -89,7 +89,7 @@ const useShowResult = (isRewardClaimed?: boolean) => {
         await txn.wait()
         console.log('Tokens Transfered', txn.hash, txn)
 
-        await user?.set('store', updateUserClaimedWallet(quizType, true))
+        await user?.set('scores', updateUserClaimedWallet(quizType, true))
         // Save to database
         await user?.save()
         setHasUserClaimedAward(true)
