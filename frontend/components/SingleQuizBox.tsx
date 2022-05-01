@@ -17,7 +17,7 @@ const SingleQuizBox = ({ topic }: { topic: string }) => {
         as="section"
         onClick={() => router.push(`/quiz/${randomNumber}/${topic}`)}
         w="full"
-        h={{ base: '28', lg: '40' }}
+        h={{ base: '28', lg: '48' }}
         rounded="lg"
         bg="#fff"
         spacing="4"
