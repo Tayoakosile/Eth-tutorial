@@ -26,8 +26,8 @@ const Quizzes = () => {
         <Heading>Top Quiz Categories</Heading>
 
         <SimpleGrid
-          columns={[3, null, 4]}
-          spacing={{ base: '20px', lg: '45px' }}
+          columns={[3, null, 3]}
+          spacing={{ base: '20px', lg: '35px' }}
           w="100%"
           mx="auto"
           pt="8"
