@@ -1,12 +1,10 @@
 import { Box } from '@chakra-ui/react'
-import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Home from '../components/Home'
 import useConnectWallet from '../hooks/useConnectWallet'
 import { RootState } from '../store/store'
-import Moralis from 'moralis'
-import ProtectedComponent from '../components/ProtectedComponent'
 
 const Index = ({ currentUser }: { currentUser: any }) => {
   // console.log(currentUser, 'currentUser')
@@ -29,6 +27,9 @@ const Index = ({ currentUser }: { currentUser: any }) => {
   return (
     <>
       <Box as="section" h="100vh" bg="#141933">
+        <Head>
+          <title>Block chain quiz app</title>
+        </Head>
         <Home />
       </Box>
     </>

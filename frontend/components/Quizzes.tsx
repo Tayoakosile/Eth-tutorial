@@ -1,10 +1,9 @@
-import React from 'react'
-import { Box, HStack, VStack, Heading, SimpleGrid } from '@chakra-ui/react'
-import SingleQuizBox from './SingleQuizBox'
+import { Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import randomatic from 'randomatic'
+import SingleQuizBox from './SingleQuizBox'
 
 const Quizzes = () => {
-  const topics = ['Blockchain', 'Ethereum', 'NFT', 'Solidity', 'Smart Contract']
+  const topics = ['Blockchain', 'NFT']
   return (
     <>
       <Box
@@ -26,7 +25,7 @@ const Quizzes = () => {
           pt="8"
         >
           {topics.map((topic) => (
-            <SingleQuizBox  key={randomatic('0a', 12)} topic={topic} />
+            <SingleQuizBox key={randomatic('0a', 12)} topic={topic} />
           ))}
         </SimpleGrid>
       </Box>

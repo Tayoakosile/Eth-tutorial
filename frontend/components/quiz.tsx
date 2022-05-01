@@ -1,4 +1,4 @@
-import { Avatar, Box, Heading, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, Heading, HStack, VStack } from '@chakra-ui/react'
 
 const QuizComponent = () => {
   return (
@@ -13,12 +13,6 @@ const QuizComponent = () => {
         borderBottomLeftRadius={'10px'}
         p="3"
       >
-        <HStack cursor={'pointer'}>
-          <Avatar />
-          <Heading color="#fff" size="md">
-            Tayo Akosile
-          </Heading>
-        </HStack>
         <HStack
           position="absolute"
           h="52"
@@ -38,7 +32,6 @@ const QuizComponent = () => {
             <Heading size="xl">
               Play &<br /> Win Coin
             </Heading>
-            <Text>Hello world are you </Text>
           </VStack>
         </HStack>
       </Box>

@@ -1,14 +1,15 @@
-import { ethers } from 'ethers'
+import Router, { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../store/store'
-import { addWalletAddress } from '../store/walletInfo'
 import { useMoralis } from 'react-moralis'
-import Router from 'next/router'
-import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux'
+import { addWalletAddress } from '../store/walletInfo'
+import { useToast } from '@chakra-ui/react'
 
+declare let window: any
 const useConnectWallet = () => {
   const dispatch = useDispatch()
+  const toast = useToast()
+
   const router = useRouter()
   const [isAuthenticating, setIsAuthenticating] = useState(true)
   const {
@@ -36,8 +37,19 @@ const useConnectWallet = () => {
   const connectAccount = async () => {
     if (!isAuthenticated) {
       await enableWeb3()
-      await authenticate()
-        .then(function (user: any) {
+      if (!window.ethereum) {
+        toast({
+          position: 'top-right',
+          title: 'Error',
+          description: 'Please install a metamask wallet to perform this quiz',
+          status: 'error',
+          isClosable: true,
+        })
+      }
+      await authenticate({
+        signingMessage: 'Connect to Quiz app',
+      })
+        .then((user: any) => {
           console.log('logged in user:')
           const userAddress = user!.get('ethAddress')
           dispatch(
@@ -51,6 +63,13 @@ const useConnectWallet = () => {
         })
         .catch(function (error: any) {
           Router.push('/')
+          toast({
+            position: 'top-right',
+            title: 'Error',
+            description:
+              'Please install a metamask wallet to perform this quiz',
+            status: 'error',
+          })
           console.log(error)
         })
     }
