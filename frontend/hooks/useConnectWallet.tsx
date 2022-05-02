@@ -1,10 +1,11 @@
+import { useToast } from '@chakra-ui/react'
+//@ts-ignore
+import sessionStorage from 'sessionstorage'
 import Router, { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useMoralis } from 'react-moralis'
 import { useDispatch } from 'react-redux'
 import { addWalletAddress } from '../store/walletInfo'
-import { useToast } from '@chakra-ui/react'
-
 declare let window: any
 const useConnectWallet = () => {
   const dispatch = useDispatch()
@@ -47,6 +48,20 @@ const useConnectWallet = () => {
           isClosable: true,
         })
       }
+      sessionStorage.setItem(
+        'quizAppConfig',
+        JSON.stringify([
+          {
+            'NFT': false,
+          },
+          {
+            "Blockchain": false,
+          },
+          {
+            "Smart": false,
+          },
+        ]),
+      )
       await authenticate({
         signingMessage: 'Connect to Quiz app',
       })
@@ -59,7 +74,6 @@ const useConnectWallet = () => {
               isWalletConnected: true,
             }),
           )
-          console.log(user!.get('ethAddress'))
           return true
         })
         .catch(function (error: any) {

@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 
 import { ethers, utils } from 'ethers'
 
+import { useToast } from '@chakra-ui/react'
 import abi from '../abi/Blockchain.json'
 import useConnectWallet from './useConnectWallet'
-import { useToast } from '@chakra-ui/react'
 
 // const signer =
 
@@ -16,7 +16,8 @@ const useShowResult = (isRewardClaimed?: boolean) => {
   const toast = useToast()
   const [claimTransaction, setClaimTransaction] = useState(false)
   const [hasUserClaimedAward, setHasUserClaimedAward] = useState<any>(true)
-  const contractAddress = '0x7Ce15147d6e57162BffF39049a027e845365b361'
+const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
+
 
   const contractABI = abi.abi
   const route = useRouter()

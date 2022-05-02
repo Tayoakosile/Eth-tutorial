@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import abi from '../abi/Blockchain.json'
 import useConnectWallet from './useConnectWallet'
 
-const contractAddress = '0x7Ce15147d6e57162BffF39049a027e845365b361'
+const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as string
 
 const contractABI = abi.abi
 declare let window: any
@@ -42,7 +42,7 @@ const useChangeName = () => {
         if (window.ethereum) {
           const provider = new ethers.providers.Web3Provider(window.ethereum)
           const signer = new ethers.Wallet(
-            'd5bbd2e916a9fc09205d9d37c9dbfa9a65c063d47036d082def83275656fe1ce',
+            process.env.NEXT_PUBLIC_PRIVATE_KEY as string,
             provider,
           )
           const tokenContract = new ethers.Contract(

@@ -16,7 +16,7 @@ And as the admin of the app, you would be able  to pause the app or stop the vot
      event tokensBurned(address indexed owner,uint256 amount,string message);
      event tokensMinted(address indexed owner,uint256 amount,string message);
      event additionalTokenMinted(address indexed owner,uint256 amount,string message);
-
+mapping (address => uint) customerBalance;
       constructor() ERC20("BLKQUIZ", "BLQ") {
         _mint(msg.sender, 1000000*10**decimals());
         emit tokensMinted(msg.sender,10000*10**decimals(),'Token minted');
@@ -28,10 +28,17 @@ And as the admin of the app, you would be able  to pause the app or stop the vot
         emit additionalTokenMinted(_to,_amount,'Additional token minted');
     }
     
+    function depositMoney() public payable{
+        require(msg.value != 0,'You need to deposit some coins');
+    }
+    
     // Burn tokens for users
     function burn(uint256 _amount)public  onlyOwner {
         _burn(msg.sender,_amount);
         emit tokensBurned(msg.sender,_amount,'Tokens burned.');
     }
+    function withdraw(address _recipient) public payable onlyOwner {
+    payable(_recipient).transfer(address(this).balance);
+}
 
  }

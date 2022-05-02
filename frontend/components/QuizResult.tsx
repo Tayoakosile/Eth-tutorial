@@ -26,7 +26,7 @@ import useShowResult from '../hooks/useShowResult'
 const QuizResult = ({ quizScoreAndResult }: { quizScoreAndResult: any }) => {
   const [isOpen, setIsOpen] = useState({ open: false, earnedCoin: 0 })
   const [value, setValue] = useState(
-    '0x7ce15147d6e57162bfff39049a027e845365b361',
+    "0x3A581eCda472f9B7773791274bC7Fa0E26C1D00A"
   )
   const { hasCopied, onCopy } = useClipboard(value)
 

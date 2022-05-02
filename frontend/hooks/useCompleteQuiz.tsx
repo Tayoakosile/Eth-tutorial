@@ -1,11 +1,5 @@
-import React from 'react'
-import { Box, HStack, VStack } from '@chakra-ui/react'
-import { useNewMoralisObject } from 'react-moralis'
-
-import useAuth from './useAuth'
-import Moralis from 'moralis'
-import useConnectWallet from './useConnectWallet'
 import { useRouter } from 'next/router'
+import useConnectWallet from './useConnectWallet'
 
 const useCompleteQuiz = () => {
   const router = useRouter()
